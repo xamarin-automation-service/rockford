@@ -52,6 +52,13 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
+    <Reference Include="Csla">
+      <HintPath>..\packages\CSLA-Core.4.6.100\lib\MonoAndroid10\Csla.dll</HintPath>
+    </Reference>
+    <Reference Include="Csla.Axml">
+      <HintPath>..\packages\CSLA-Android.4.6.100\lib\MonoAndroid10\Csla.Axml.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
