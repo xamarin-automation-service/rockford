@@ -52,9 +52,6 @@ namespace :build do
     # puts "Maps added to manifest"
     puts "Building XamarinCRM.Android"
 
-    time = time_cmd "xbuild Android/cs/SimpleApp/Library.Client/Library.Client.csproj /verbosity:quiet /flp:LogFile=build_android.log"
-    time = time_cmd "xbuild Android/cs/SimpleApp/Library.Server/Library.Server.csproj /verbosity:quiet /flp:LogFile=build_android.log"
-    time = time_cmd "xbuild Android/cs/SimpleApp/SimpleApp.sln /verbosity:quiet /flp:LogFile=build_android.log"
     time = time_cmd "xbuild Android/cs/SimpleApp/SimpleApp/SimpleApp.csproj /p:Configuration=Debug /t:SignAndroidPackage /verbosity:quiet /flp:LogFile=build_android.log"
 
     # puts "Checking for Insights on Android"
