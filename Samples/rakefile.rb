@@ -44,8 +44,8 @@ namespace :build do
   desc "Build Android App"
   task :android => [:clean] do
     sh "nuget restore Android/cs/SimpleApp/SimpleApp/packages.config -PackagesDirectory ../packages"
-    sh "nuget restore Android/cs/SimpleApp/Library.Client/packages.config ../packages/"
-    sh "nuget restore Android/cs/SimpleApp/Library.Server/packages.config ../packages/"
+    sh "nuget restore Android/cs/SimpleApp/Library.Client/packages.config -PackagesDirectory ../packages/"
+    sh "nuget restore Android/cs/SimpleApp/Library.Server/packages.config -PackagesDirectory ../packages/"
     puts "Android nugets restored"
     puts
     # addMaptoManifest("../../src/MobileApp/XamarinCRM.Android/Properties/AndroidManifest.xml")
