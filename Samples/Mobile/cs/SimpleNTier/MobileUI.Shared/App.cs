@@ -20,7 +20,7 @@ namespace MobileUI
 
       MainViewModel = new OrderVm();
       page.ViewModel = MainViewModel;
-      return new NavigationPage(page);
+      return NavigationPage(page);
     }
 
     public static async Task InitializeViewModel()
