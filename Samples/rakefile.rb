@@ -24,6 +24,7 @@ namespace :build do
   task :ios => [:clean] do
     sh "pwd"
     sh "nuget restore Ios/cs/SimpleApp/packages.config -PackagesDirectory packages/"
+
     # sh "nuget restore ../../src/MobileApp/XamarinCRM.UITest/packages.config -PackagesDirectory ../../src/MobileApp/packages/"
     puts "iOS nugets restored"
     puts
@@ -43,12 +44,17 @@ namespace :build do
   desc "Build Android App"
   task :android => [:clean] do
     sh "nuget restore Android/cs/SimpleApp/SimpleApp/packages.config -PackagesDirectory ../packages"
+    sh "nuget restore Android/cs/SimpleApp/Library.Client/packages.config ../packages/"
+    sh "nuget restore Android/cs/SimpleApp/Library.Server/packages.config ../packages/"
     puts "Android nugets restored"
     puts
     # addMaptoManifest("../../src/MobileApp/XamarinCRM.Android/Properties/AndroidManifest.xml")
     # puts "Maps added to manifest"
     puts "Building XamarinCRM.Android"
 
+    time = time_cmd "xbuild Android/cs/SimpleApp/Library.Client/Library.Client.csproj /verbosity:quiet /flp:LogFile=build_android.log"
+    time = time_cmd "xbuild Android/cs/SimpleApp/Library.Server/Library.Server.csproj /verbosity:quiet /flp:LogFile=build_android.log"
+    time = time_cmd "xbuild Android/cs/SimpleApp/SimpleApp.sln /verbosity:quiet /flp:LogFile=build_android.log"
     time = time_cmd "xbuild Android/cs/SimpleApp/SimpleApp/SimpleApp.csproj /p:Configuration=Debug /t:SignAndroidPackage /verbosity:quiet /flp:LogFile=build_android.log"
 
     # puts "Checking for Insights on Android"
