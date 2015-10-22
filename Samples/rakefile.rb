@@ -23,7 +23,8 @@ namespace :build do
   desc "Build iOS App"
   task :ios => [:clean] do
     sh "pwd"
-    sh "nuget restore Ios/cs/SimpleApp/packages.config -PackagesDirectory packages/"
+    sh "nuget restore Ios/cs/SimpleApp/packages.config -PackagesDirectory Ios/cs/SimpleApp/packages/"
+    sh "nuget restore Ios/cs/SimpleApp/Library.Client/packages.config -PackagesDirectory Ios/cs/SimpleApp/Library.Client/packages/"
 
     # sh "nuget restore ../../src/MobileApp/XamarinCRM.UITest/packages.config -PackagesDirectory ../../src/MobileApp/packages/"
     puts "iOS nugets restored"
@@ -43,15 +44,17 @@ namespace :build do
 
   desc "Build Android App"
   task :android => [:clean] do
-    sh "nuget restore Android/cs/SimpleApp/SimpleApp/packages.config -PackagesDirectory ../packages"
-    sh "nuget restore Android/cs/SimpleApp/Library.Client/packages.config -PackagesDirectory ../packages/"
-    sh "nuget restore Android/cs/SimpleApp/Library.Server/packages.config -PackagesDirectory ../packages/"
+    sh "nuget restore Android/cs/SimpleApp/SimpleApp/packages.config -PackagesDirectory Android/cs/SimpleApp/packages"
+    sh "nuget restore Android/cs/SimpleApp/Library.Client/packages.config -PackagesDirectory Android/cs/SimpleApp/Library.Client/packages/"
+    sh "nuget restore Android/cs/SimpleApp/Library.Server/packages.config -PackagesDirectory Android/cs/SimpleApp/Library.Server/packages/"
     puts "Android nugets restored"
     puts
     # addMaptoManifest("../../src/MobileApp/XamarinCRM.Android/Properties/AndroidManifest.xml")
     # puts "Maps added to manifest"
     puts "Building XamarinCRM.Android"
 
+    time = time_cmd "xbuild Android/cs/SimpleApp/Library.Client/Library.Client.csproj /p:Configuration=Debug /verbosity:quiet /flp:LogFile=build_android.log"
+    time = time_cmd "xbuild Android/cs/SimpleApp/Library.Server/Library.Server.csproj /p:Configuration=Debug /verbosity:quiet /flp:LogFile=build_android.log"
     time = time_cmd "xbuild Android/cs/SimpleApp/SimpleApp/SimpleApp.csproj /p:Configuration=Debug /t:SignAndroidPackage /verbosity:quiet /flp:LogFile=build_android.log"
 
     # puts "Checking for Insights on Android"
